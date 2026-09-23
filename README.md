@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Drape
 
-## Getting Started
+A clothing marketplace demo: animated storefront, retail + wholesale, and a
+live camera Try-On Studio. Built from the implementation plan in
+`Drape — Full Implementation Plan (Demo v1).docx`.
 
-First, run the development server:
+## What's here right now
+
+Everything below runs today, on mock data, with **no accounts or API keys**:
+
+- **Storefront** — `/`, `/shop`, `/shop/[category]`, `/p/[slug]` — animated with
+  Lenis smooth scroll, Framer Motion reveals/parallax, a magnetic-button
+  header and a custom cursor.
+- **Try-On Studio** — `/studio` — requests real camera access, shows a
+  silhouette "step back" guide, locks a garment overlay on once you're framed,
+  captures a still, and calls `/api/tryon` to "generate a realistic look."
+  If your camera is blocked (or you have none), a **Use a demo frame** button
+  runs the same flow without one.
+- **Wholesale** — `/wholesale` and the wholesale toggle on any product page —
+  tiered pricing, MOQ enforcement, size-ratio packs, live "you saved ₹X".
+- **Supabase schema + Edge Functions** — written out under `supabase/`, ready
+  to deploy once you have a project. Nothing calls them yet; the app runs on
+  `lib/mock-data.ts` until you wire them in.
+
+Routes that need real auth (`/login`, `/signup`, `/account`, `/seller`,
+`/admin`) show a plain explanation instead of a broken page or a 404.
+
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. Allow camera access on `/studio` to try the real
+flow, or click **Use a demo frame** if you're on a machine without one.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Day 1 checklist (from the plan)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All free, or already covered by a Gemini AI Pro plan:
 
-## Learn More
+1. **Google AI Studio** — create a Gemini API key, set a $10 budget alert.
+2. **Supabase** — new project in `ap-south-1` (Mumbai).
+3. **Vercel** — sign up with GitHub, for hosting.
+4. **GitHub** — private repo, e.g. `drape`.
+5. **Razorpay** — sign up, use **test keys only**.
+6. **Figma** (free) — 20–30 references from Awwwards / Dribbble / Framer if
+   you want to push the visual design further.
 
-To learn more about Next.js, take a look at the following resources:
+Copy `.env.example` to `.env.local` and fill these in as you go — see the
+comments in that file for exactly what each key unlocks.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Wiring up the real backend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. `supabase link` your project, then:
+   ```bash
+   supabase db push               # runs supabase/migrations/*.sql
+   supabase functions deploy tryon-generate
+   supabase functions deploy create-order
+   supabase functions deploy verify-payment
+   supabase secrets set GEMINI_API_KEY=... RAZORPAY_KEY_ID=... RAZORPAY_KEY_SECRET=...
+   ```
+2. Swap `lib/mock-data.ts` reads in the pages under `app/` for real
+   `supabase-js` queries (a `lib/supabase/client.ts` + `server.ts` pair is the
+   next thing to add — none exists yet since there's no project to point at).
+3. In `app/api/tryon/route.ts`, either keep it as a thin proxy to the
+   `tryon-generate` Edge Function, or delete it and call the Edge Function
+   directly from `StudioClient` — the Edge Function version is what actually
+   ships to production per the plan's architecture (secrets never touch the
+   Next.js server).
 
-## Deploy on Vercel
+## Notable implementation notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Pose tracking is simulated.** The plan calls for MediaPipe pose
+  landmarks driving the AR overlay in real time. This build simulates that
+  UX (align → lock) on a timer so the interaction is fully demoable; swapping
+  in real MediaPipe pose/segmentation is the next real engineering step,
+  documented as `lib/tryon/pose.ts` and `segmenter.ts` in the plan's file tree
+  (not yet created).
+- **Product photography is procedural**, not stock photos — `GarmentArt`
+  renders a duotone gradient + line-art garment icon per product so the whole
+  catalog has one consistent, license-free look without needing real photo
+  assets.
+- **`/api/tryon`** returns a mock composited image (canvas overlay + note)
+  whenever `GEMINI_API_KEY` is unset, and a real Gemini call otherwise — see
+  the comments in that file and in `supabase/functions/tryon-generate/index.ts`.
