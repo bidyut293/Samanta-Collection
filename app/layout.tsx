@@ -25,10 +25,25 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
+const title = "Samanta Studio — Wear it before you buy it";
+const description =
+  "Samanta Studio is a clothing marketplace with a live AI try-on studio, retail and wholesale in one storefront.";
+
 export const metadata: Metadata = {
-  title: "Samanta Studio — Wear it before you buy it",
-  description:
-    "Samanta Studio is a clothing marketplace with a live AI try-on studio, retail and wholesale in one storefront.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    siteName: "Samanta Studio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

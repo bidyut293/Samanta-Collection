@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, X, ShoppingBag, Search } from "lucide-react";
@@ -44,8 +45,18 @@ export function Header() {
           scrolled || open ? "bg-paper/90 backdrop-blur-md" : "bg-transparent",
         )}
       >
-        <Link href="/" className="font-display text-xl font-medium tracking-tight sm:text-2xl" data-cursor="hover">
-          Samanta Studio
+        <Link href="/" className="flex items-center gap-2.5" data-cursor="hover">
+          <Image
+            src="/brand/icon-1024.png"
+            alt=""
+            width={32}
+            height={32}
+            className="h-8 w-8 rounded-[8px] sm:h-9 sm:w-9"
+            priority
+          />
+          <span className="font-display text-xl font-medium tracking-tight sm:text-2xl">
+            Samanta Studio
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-9 text-[13px] font-medium uppercase tracking-[0.12em] md:flex">
