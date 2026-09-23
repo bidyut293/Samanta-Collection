@@ -1,6 +1,7 @@
 import { Hero } from "@/components/home/Hero";
 import { Marquee } from "@/components/motion/Marquee";
 import { TryOnShowcase } from "@/components/home/TryOnShowcase";
+import { Lookbook } from "@/components/home/Lookbook";
 import { FeaturedGrid } from "@/components/home/FeaturedGrid";
 import { WholesaleBand } from "@/components/home/WholesaleBand";
 import { products } from "@/lib/mock-data";
@@ -20,6 +21,7 @@ export default function Home() {
       </div>
 
       <TryOnShowcase />
+      <Lookbook />
       <FeaturedGrid products={featured} />
       <WholesaleBand />
     </>

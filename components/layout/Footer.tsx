@@ -12,8 +12,9 @@ export function Footer() {
 
       <div className="mx-auto max-w-7xl px-6 pb-12 pt-16 sm:px-10">
         <FadeUp>
-          <Link href="/" className="font-display text-[15vw] leading-[0.85] tracking-tight sm:text-[9vw]">
-            Drape
+          <Link href="/" className="block font-display text-[13vw] leading-[0.88] tracking-tight sm:text-[7vw]">
+            <span className="block">Samanta</span>
+            <span className="block">Studio</span>
           </Link>
         </FadeUp>
 
@@ -52,7 +53,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs uppercase tracking-[0.2em] text-white/40 sm:flex-row sm:items-center sm:justify-between">
-          <span>&copy; {new Date().getFullYear()} Drape. Demo build.</span>
+          <span>&copy; {new Date().getFullYear()} Samanta Studio. Demo build.</span>
           <span>Payments in Razorpay test mode</span>
         </div>
       </div>

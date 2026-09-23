@@ -11,7 +11,7 @@ const NAV = [
   { label: "Shop", href: "/shop" },
   { label: "Try-On Studio", href: "/studio" },
   { label: "Wholesale", href: "/wholesale" },
-  { label: "Sell on Drape", href: "/sell" },
+  { label: "Sell", href: "/sell" },
 ];
 
 export function Header() {
@@ -44,8 +44,8 @@ export function Header() {
           scrolled || open ? "bg-paper/90 backdrop-blur-md" : "bg-transparent",
         )}
       >
-        <Link href="/" className="font-display text-2xl font-medium tracking-tight" data-cursor="hover">
-          Drape
+        <Link href="/" className="font-display text-xl font-medium tracking-tight sm:text-2xl" data-cursor="hover">
+          Samanta Studio
         </Link>
 
         <nav className="hidden items-center gap-9 text-[13px] font-medium uppercase tracking-[0.12em] md:flex">
@@ -116,7 +116,7 @@ export function Header() {
               ))}
             </nav>
             <div className="flex flex-wrap items-center justify-between gap-4 text-xs uppercase tracking-[0.2em] text-white/50">
-              <span>&copy; {new Date().getFullYear()} Drape</span>
+              <span>&copy; {new Date().getFullYear()} Samanta Studio</span>
               <div className="flex gap-6">
                 <Link href="/login" onClick={() => setOpen(false)} data-cursor="hover" className="text-white">
                   Sign in

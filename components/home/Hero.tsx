@@ -40,7 +40,7 @@ export function Hero() {
 
         <div className="mt-8 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
           <p className="max-w-md text-balance text-base text-white/70 sm:text-lg">
-            Point your camera at yourself. Drape drops any product straight onto you, live &mdash;
+            Point your camera at yourself. Samanta Studio drops any product straight onto you, live &mdash;
             then lets you buy retail or by the case.
           </p>
 

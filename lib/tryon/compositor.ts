@@ -38,7 +38,7 @@ export function renderMockLook(
   ctx.fillStyle = "#f6f3ec";
   ctx.font = `${Math.round(barHeight * 0.34)}px sans-serif`;
   ctx.textBaseline = "middle";
-  ctx.fillText(`Drape AI · ${label}`, 20, canvas.height - barHeight / 2);
+  ctx.fillText(`Samanta Studio · ${label}`, 20, canvas.height - barHeight / 2);
 
   return canvas.toDataURL("image/jpeg", 0.92);
 }

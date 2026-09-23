@@ -1,8 +1,9 @@
-# Drape
+# Samanta Studio
 
 A clothing marketplace demo: animated storefront, retail + wholesale, and a
 live camera Try-On Studio. Built from the implementation plan in
-`Drape — Full Implementation Plan (Demo v1).docx`.
+`Drape — Full Implementation Plan (Demo v1).docx` (the plan's working name
+was "Drape"; the live brand is Samanta Studio).
 
 ## What's here right now
 
@@ -77,10 +78,13 @@ comments in that file for exactly what each key unlocks.
   in real MediaPipe pose/segmentation is the next real engineering step,
   documented as `lib/tryon/pose.ts` and `segmenter.ts` in the plan's file tree
   (not yet created).
-- **Product photography is procedural**, not stock photos — `GarmentArt`
-  renders a duotone gradient + line-art garment icon per product so the whole
-  catalog has one consistent, license-free look without needing real photo
-  assets.
+- **Product photography is procedural for the catalog**, not stock photos —
+  `GarmentArt` renders a duotone gradient + line-art garment icon per product
+  so the grid has one consistent, license-free look without needing real
+  photo assets. The homepage **Lookbook** section is the exception: two real,
+  freely-licensed (Unsplash License) photos under `public/lookbook/`, edited
+  locally to carry the Samanta Studio wordmark on the garment. Swap these for
+  real product photography once you shoot your own.
 - **`/api/tryon`** returns a mock composited image (canvas overlay + note)
   whenever `GEMINI_API_KEY` is unset, and a real Gemini call otherwise — see
   the comments in that file and in `supabase/functions/tryon-generate/index.ts`.

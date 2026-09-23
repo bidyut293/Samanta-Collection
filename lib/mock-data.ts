@@ -255,6 +255,34 @@ export const products: Product[] = [
     seller: "Maison Verre",
     tone: ["#7a6a52", "#211c14"],
   },
+  {
+    id: "p9",
+    slug: "studio-hoodie-fog",
+    title: "Studio Hoodie",
+    category: "outerwear",
+    garmentType: "outerwear",
+    fabric: "Heavyweight brushed fleece",
+    gender: "unisex",
+    basePrice: 3400,
+    colors: [
+      { name: "Fog", hex: "#c7cbd1" },
+      { name: "Onyx", hex: "#141414" },
+    ],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    description:
+      "An oversized, garment-dyed hoodie with a kangaroo pocket and a dropped shoulder. Runs a size big by design.",
+    tryonEnabled: true,
+    wholesaleEnabled: true,
+    moq: 20,
+    tiers: [
+      { min_qty: 20, unit_price: 2900 },
+      { min_qty: 60, unit_price: 2500 },
+    ],
+    sizePack: { name: "Standard run", ratio: { S: 1, M: 2, L: 2, XL: 1 } },
+    seller: "Studio Loam",
+    tone: ["#c7cbd1", "#22242a"],
+    isNew: true,
+  },
 ];
 
 export const tryonBackgrounds = [

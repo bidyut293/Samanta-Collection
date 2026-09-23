@@ -26,7 +26,7 @@ export default function SellPage() {
     <div>
       <section className="bg-ink px-6 py-32 text-paper sm:px-10 sm:py-40">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="text-xs uppercase tracking-[0.2em] text-flame-soft">Sell on Drape</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-flame-soft">Sell on Samanta Studio</span>
           <RevealText
             as="h1"
             className="mx-auto mt-4 font-display text-[13vw] font-medium leading-[0.92] tracking-tight sm:text-7xl"

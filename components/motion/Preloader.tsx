@@ -10,7 +10,7 @@ export function Preloader() {
   useEffect(() => {
     // sessionStorage is unavailable during SSR, so whether we've already
     // shown the preloader this session can only be known once mounted.
-    if (sessionStorage.getItem("drape-visited")) {
+    if (sessionStorage.getItem("samanta-studio-visited")) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisible(false);
       return;
@@ -24,7 +24,7 @@ export function Preloader() {
       if (pct < 100) {
         raf = requestAnimationFrame(tick);
       } else {
-        sessionStorage.setItem("drape-visited", "1");
+        sessionStorage.setItem("samanta-studio-visited", "1");
         setTimeout(() => setVisible(false), 250);
       }
     }
@@ -43,14 +43,14 @@ export function Preloader() {
             transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
           }}
         >
-          <div className="overflow-hidden">
+          <div className="overflow-hidden px-6 text-center">
             <motion.span
-              className="block font-display text-[13vw] leading-none tracking-tight sm:text-[7vw]"
+              className="block whitespace-nowrap font-display text-[9vw] leading-none tracking-tight sm:text-[4.5vw]"
               initial={{ y: "100%" }}
               animate={{ y: "0%" }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              Drape
+              Samanta Studio
             </motion.span>
           </div>
           <div className="mt-8 h-px w-40 overflow-hidden bg-white/15 sm:w-56">

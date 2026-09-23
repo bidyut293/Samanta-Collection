@@ -26,9 +26,9 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Drape — Wear it before you buy it",
+  title: "Samanta Studio — Wear it before you buy it",
   description:
-    "Drape is a clothing marketplace with a live AI try-on studio, retail and wholesale in one storefront.",
+    "Samanta Studio is a clothing marketplace with a live AI try-on studio, retail and wholesale in one storefront.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
