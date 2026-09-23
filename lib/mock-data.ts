@@ -32,6 +32,8 @@ export interface Product {
   sizePack?: { name: string; ratio: Record<string, number> };
   seller: string;
   tone: [string, string];
+  /** Real photo, used in place of the procedural GarmentArt art when set. */
+  image?: string;
   featured?: boolean;
   isNew?: boolean;
 }
@@ -73,6 +75,7 @@ export const products: Product[] = [
     sizePack: { name: "Standard run", ratio: { S: 1, M: 2, L: 2, XL: 1 } },
     seller: "Studio Loam",
     tone: ["#b3562e", "#241a12"],
+    image: "/products/field-overshirt.jpg",
     featured: true,
   },
   {
@@ -103,6 +106,7 @@ export const products: Product[] = [
     sizePack: { name: "Core run", ratio: { S: 2, M: 3, L: 3, XL: 1 } },
     seller: "Studio Loam",
     tone: ["#c9bfa8", "#2b2820"],
+    image: "/products/drape-tee.jpg",
     featured: true,
     isNew: true,
   },
@@ -131,6 +135,7 @@ export const products: Product[] = [
     ],
     seller: "Maison Verre",
     tone: ["#8f8879", "#1a1a1c"],
+    image: "/products/wide-leg-trouser.jpg",
     featured: true,
   },
   {
@@ -155,6 +160,7 @@ export const products: Product[] = [
     tiers: [],
     seller: "Maison Verre",
     tone: ["#5f1f2b", "#241014"],
+    image: "/products/slip-dress.jpg",
     featured: true,
   },
   {
@@ -183,6 +189,7 @@ export const products: Product[] = [
     sizePack: { name: "Standard run", ratio: { S: 1, M: 2, L: 2, XL: 1 } },
     seller: "Northline Supply",
     tone: ["#454b52", "#15181b"],
+    image: "/products/shell-jacket.jpg",
   },
   {
     id: "p6",
@@ -208,6 +215,7 @@ export const products: Product[] = [
     ],
     seller: "Northline Supply",
     tone: ["#cbb896", "#2c2519"],
+    image: "/products/canvas-cap.jpg",
   },
   {
     id: "p7",
@@ -231,6 +239,7 @@ export const products: Product[] = [
     tiers: [{ min_qty: 24, unit_price: 2250 }],
     seller: "Studio Loam",
     tone: ["#2f4a3a", "#12201a"],
+    image: "/products/rib-polo.jpg",
     isNew: true,
   },
   {
@@ -254,6 +263,7 @@ export const products: Product[] = [
     tiers: [],
     seller: "Maison Verre",
     tone: ["#7a6a52", "#211c14"],
+    image: "/products/pleated-skirt.jpg",
   },
   {
     id: "p9",
@@ -281,6 +291,7 @@ export const products: Product[] = [
     sizePack: { name: "Standard run", ratio: { S: 1, M: 2, L: 2, XL: 1 } },
     seller: "Studio Loam",
     tone: ["#c7cbd1", "#22242a"],
+    image: "/lookbook/female-model.jpg",
     isNew: true,
   },
 ];

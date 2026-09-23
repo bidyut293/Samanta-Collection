@@ -30,7 +30,7 @@ const description =
   "Samanta Studio is a clothing marketplace with a live AI try-on studio, retail and wholesale in one storefront.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title,
   description,
   openGraph: {

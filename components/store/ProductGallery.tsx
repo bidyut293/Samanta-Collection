@@ -3,12 +3,26 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GarmentArt } from "@/components/store/GarmentArt";
+import { ProductImage } from "@/components/store/ProductImage";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/mock-data";
 
 export function ProductGallery({ product }: { product: Product }) {
   const [active, setActive] = useState(0);
   const views = [false, true, false] as const;
+
+  if (product.image) {
+    return (
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] bg-paper-dim">
+        <ProductImage
+          product={product}
+          className="h-full w-full"
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          priority
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-[64px_1fr] gap-4 sm:grid-cols-[80px_1fr]">

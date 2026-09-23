@@ -5,6 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Camera } from "lucide-react";
 import { GarmentArt } from "@/components/store/GarmentArt";
+import { ProductImage } from "@/components/store/ProductImage";
 import { formatINR } from "@/lib/utils";
 import type { Product } from "@/lib/mock-data";
 
@@ -29,12 +30,23 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
         onMouseLeave={() => setHovered(false)}
       >
         <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] bg-paper-dim">
-          <div className="absolute inset-0 transition-opacity duration-500" style={{ opacity: hovered ? 0 : 1 }}>
-            <GarmentArt type={product.garmentType} tone={product.tone} className="h-full w-full" />
-          </div>
-          <div className="absolute inset-0 transition-opacity duration-500" style={{ opacity: hovered ? 1 : 0 }}>
-            <GarmentArt type={product.garmentType} tone={product.tone} flip className="h-full w-full" />
-          </div>
+          {product.image ? (
+            <div
+              className="absolute inset-0 transition-transform duration-700"
+              style={{ transform: hovered ? "scale(1.04)" : "scale(1)" }}
+            >
+              <ProductImage product={product} className="h-full w-full" sizes="(min-width: 1024px) 25vw, 50vw" />
+            </div>
+          ) : (
+            <>
+              <div className="absolute inset-0 transition-opacity duration-500" style={{ opacity: hovered ? 0 : 1 }}>
+                <GarmentArt type={product.garmentType} tone={product.tone} className="h-full w-full" />
+              </div>
+              <div className="absolute inset-0 transition-opacity duration-500" style={{ opacity: hovered ? 1 : 0 }}>
+                <GarmentArt type={product.garmentType} tone={product.tone} flip className="h-full w-full" />
+              </div>
+            </>
+          )}
 
           <div className="absolute left-3 top-3 flex flex-col gap-2">
             {product.isNew && (

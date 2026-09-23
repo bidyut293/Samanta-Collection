@@ -32,7 +32,7 @@ Deno.serve(async (req) => {
     return Response.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  const { image, productId, productTitle, mode } = await req.json();
+  const { image, productId, productTitle, productImage, mode } = await req.json();
   if (!image || !productTitle) {
     return Response.json({ error: "image and productTitle are required" }, { status: 400 });
   }
@@ -42,21 +42,22 @@ Deno.serve(async (req) => {
     return Response.json({ error: "GEMINI_API_KEY is not configured" }, { status: 500 });
   }
 
+  const parts: Record<string, unknown>[] = [
+    {
+      text: productImage
+        ? `The second image shows a real garment: "${productTitle}". Composite a photoreal, well-lit product shot of the person in the first image wearing that exact garment — match its color, fabric texture and cut as closely as possible. Keep their pose, body and face unchanged. Studio quality.`
+        : `Composite a photoreal, well-lit product shot of the person in this photo wearing "${productTitle}". Keep their pose and face. Studio quality.`,
+    },
+    { inlineData: { mimeType: "image/jpeg", data: String(image).split(",")[1] ?? "" } },
+  ];
+  if (productImage) {
+    parts.push({ inlineData: { mimeType: "image/jpeg", data: String(productImage).split(",")[1] ?? "" } });
+  }
+
   const geminiResponse = await fetch(`${GEMINI_URL}`, {
     method: "POST",
     headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-    body: JSON.stringify({
-      contents: [
-        {
-          parts: [
-            {
-              text: `Composite a photoreal, well-lit product shot of the person in this photo wearing "${productTitle}". Keep their pose and face. Studio quality.`,
-            },
-            { inlineData: { mimeType: "image/jpeg", data: String(image).split(",")[1] ?? "" } },
-          ],
-        },
-      ],
-    }),
+    body: JSON.stringify({ contents: [{ parts }] }),
   });
 
   if (!geminiResponse.ok) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { GarmentArt } from "@/components/store/GarmentArt";
+import { ProductImage } from "@/components/store/ProductImage";
 import { formatINR, cn } from "@/lib/utils";
 import type { Product } from "@/lib/mock-data";
 
@@ -28,7 +28,7 @@ export function ProductRail({
             )}
             title={`${p.title} · ${formatINR(p.basePrice)}`}
           >
-            <GarmentArt type={p.garmentType} tone={p.tone} className="h-full w-full" grain={false} />
+            <ProductImage product={p} className="h-full w-full" sizes="64px" />
           </button>
         ))}
       </div>

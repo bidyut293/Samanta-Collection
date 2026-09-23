@@ -11,6 +11,16 @@ import { products, tryonBackgrounds, getProductBySlug } from "@/lib/mock-data";
 
 const TRYON_PRODUCTS = products.filter((p) => p.tryonEnabled);
 
+async function urlToDataURL(url: string): Promise<string> {
+  const blob = await fetch(url).then((r) => r.blob());
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
 export function StudioClient({ initialSlug }: { initialSlug?: string }) {
   const initial = (initialSlug && getProductBySlug(initialSlug)) || TRYON_PRODUCTS[0];
   const [product, setProduct] = useState(initial);
@@ -35,10 +45,11 @@ export function StudioClient({ initialSlug }: { initialSlug?: string }) {
     if (!image) return;
     setLoading(true);
     try {
+      const productImage = product.image ? await urlToDataURL(product.image) : null;
       const res = await fetch("/api/tryon", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image, productTitle: product.title }),
+        body: JSON.stringify({ image, productTitle: product.title, productImage }),
       });
       const data = await res.json();
       if (data.mock) {

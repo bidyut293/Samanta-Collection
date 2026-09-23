@@ -22,6 +22,29 @@ export async function POST(request: Request) {
   }
 
   try {
+    const parts: Record<string, unknown>[] = [
+      {
+        text: body.productImage
+          ? `The second image shows a real garment: "${body.productTitle}". Composite a photoreal, well-lit product shot of the person in the first image wearing that exact garment — match its color, fabric texture and cut as closely as possible. Keep their pose, body and face unchanged. Studio quality.`
+          : `Composite a photoreal, well-lit product shot of the person in this photo wearing "${body.productTitle}". Keep their pose and face. Studio quality.`,
+      },
+      {
+        inlineData: {
+          mimeType: "image/jpeg",
+          data: String(body.image).split(",")[1] ?? "",
+        },
+      },
+    ];
+
+    if (body.productImage) {
+      parts.push({
+        inlineData: {
+          mimeType: "image/jpeg",
+          data: String(body.productImage).split(",")[1] ?? "",
+        },
+      });
+    }
+
     const geminiResponse = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
       {
@@ -30,23 +53,7 @@ export async function POST(request: Request) {
           "Content-Type": "application/json",
           "x-goog-api-key": apiKey,
         },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: `Composite a photoreal, well-lit product shot of the person in this photo wearing "${body.productTitle}". Keep their pose and face. Studio quality.`,
-                },
-                {
-                  inlineData: {
-                    mimeType: "image/jpeg",
-                    data: String(body.image).split(",")[1] ?? "",
-                  },
-                },
-              ],
-            },
-          ],
-        }),
+        body: JSON.stringify({ contents: [{ parts }] }),
       },
     );
 
